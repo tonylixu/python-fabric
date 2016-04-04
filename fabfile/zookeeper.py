@@ -1,6 +1,8 @@
+from __future__ import print_function
+from __future__ import absolute_import
+
 """Zookeeper fabric utilities"""
 from distutils.util import strtobool
-from fabric.api import (env, task, warn)
 from kazoo.client import (KazooClient, KazooState)
 from kazoo.exceptions import NoNodeError
 
