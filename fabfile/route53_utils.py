@@ -14,9 +14,6 @@ from boto.route53.exception import DNSServerError
 from aws_connection import Connections
 import traceback
 
-aws_id = 'AKIAJPYHAGXD3HOEFXLQ'
-aws_key = 'XKeBEmK+IXwzIWewHMeSePR+5eInd8kExmDFpfOO'
-
 class Route53Utils(object):
     """Some standard utilities for working with route53"""
     def __init__(self, aws_id, aws_key debug=0):
