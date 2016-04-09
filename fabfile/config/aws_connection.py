@@ -18,13 +18,10 @@ from boto.route53.connection import Route53Connection
 # aws_secret_access_key = XXXXXXXXXXXXXX
 class Connections(object):
     """AWS connection class"""
-    def __init__(
-            self, profile_name='test',
-            aws_id=None, aws_key=None, debug=0):
-        """Using profile is preferred to explicit access secret keys"""
+    def __init__( self, aws_id=None, aws_key=None, debug=0):
         if aws_id is None:
-            self.profile_name = profile_name
             self.aws_access_key = None
+            sys.exit("Please provide AWS access key and secret!!")
         else:
             self.aws_access_key = aws_id
             self.aws_secret_access_key = aws_key
