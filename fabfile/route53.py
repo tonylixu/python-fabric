@@ -12,7 +12,11 @@ from distutils.util import strtobool
 from .route53_utils import Route53Utils
 
 @task
-def check_connection(aws_id, aws_key, boto_debug=False):
+def list_type_A_records(aws_id, aws_key, domain, boto_debug=False):
+    """List all type A records for a given domain"""
     if isinstance(boto_debug, basestring):
-        
+        boto_debug = bool(strtobool(boto_debug))
+    boto_debug = 2 if boto_debug else 0
+    route53_utils = Route53Utils(aws_id, aws_key, debug=boto_debug)
 
+    route53_utils.list_type_A_domain(domain)

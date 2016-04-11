@@ -7,7 +7,7 @@ try:
 
     # Modules with fabric tasks
     from . import zookeeper
-    from . import route53_utils
+    from . import route53
 except ImportError:
     print ("HEY, there was a problem with imports, you might need to run this command:")
     print ("sudo pip install -r fabfile/requirements.txt")

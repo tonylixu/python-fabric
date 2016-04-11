@@ -7,15 +7,6 @@ import boto
 from boto.s3.connection import S3Connection
 from boto.route53.connection import Route53Connection
 
-# Credentials are expected to be configured in ~/.aws/credentials
-# for example:
-# [prod]
-# aws_access_key_id = XXXXXXXXXXXXXX
-# aws_secret_access_key = XXXXXXXXXXXXXX
-#
-# [test]
-# aws_access_key_id = XXXXXXXXXXXXXX
-# aws_secret_access_key = XXXXXXXXXXXXXX
 class Connections(object):
     """AWS connection class"""
     def __init__( self, aws_id=None, aws_key=None, debug=0):
@@ -41,3 +32,15 @@ class Connections(object):
         print("Failed to authenticate. " \
                "You will need to create either ~/.boto " \
                "or ~/.aws/credentials")
+
+    def get_route53(self):
+        """Return AWS route53 connection"""
+        if self.r53 is None:
+            try:
+                self.r53 = boto.route53.connection.Route53Connection(
+                    self.aws_access_key,
+                    self.aws_secret_access_key,
+                    debug=self.debug)
+            except boto.exception.NoAuthHandlerFound:
+                self.connect_failure()
+        return self.r53
