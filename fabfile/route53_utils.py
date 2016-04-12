@@ -30,6 +30,15 @@ class Route53Utils(object):
         for record in records:
             print(record)
 
+    def create_type_A_domain(self, domain, point_to):
+        """Create DNS domain record"""
+        r53 = self.connections.get_route53()
+        # Get Zone ID
+        zone = r53.get_zone(self.env_domain)
+        zone_id = zone.id
+
+
+
     def update_type_A_domain(self, domain, point_to):
         """Update DNS domain record"""
         r53 = self.connections.get_route53()
