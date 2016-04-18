@@ -37,8 +37,6 @@ class Route53Utils(object):
         zone = r53.get_zone(self.env_domain)
         zone_id = zone.id
 
-
-
     def update_type_A_domain(self, domain, point_to):
         """Update DNS domain record"""
         r53 = self.connections.get_route53()
