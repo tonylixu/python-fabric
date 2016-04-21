@@ -4,8 +4,6 @@
 from __future__  import (absolute_import, print_function)
 
 # From system
-import os
-import sys
 from fabric.api import (abort, task)
 from distutils.util import strtobool
 # From packages
