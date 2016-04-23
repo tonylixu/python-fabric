@@ -21,3 +21,14 @@ def execute_command_as_root(command):
 def show_databases():
     """Show all databases"""
     execute_command_as_root('SHOW DATABASES;')
+
+@task
+def grab_innodb_stats():
+    """
+    Query for the current innodb status and dump it to a file.
+    """
+    with open('innodb-%s.txt' % env.host, 'a') as f:
+        f.write(str(datetime.datetime.today()))
+        f.write('\n')
+        f.write(execute_command_as_root('SHOW ENGINE INNODB STATUS\G'))
+        f.write('\n\n\n')
