@@ -11,3 +11,17 @@ from fabric.api import (abort, hide, prompt, run, settings, sudo, task)
 from fabric.contrib.console import confirm
 from fabric.contrib.files import (contains, sed, append)
 from IPy import IP
+
+# Define own exceptions
+class UpdateHostnameError(Exception):
+    """Update server hostname exception"""
+    pass
+class UpdateFileError(Exception):
+    """Update file exception"""
+    pass
+class PackageInstallError(Exception):
+    """Install package exception"""
+    pass
+class SetDefaultError(Exception):
+    """Set alternative default exception"""
+    pass
