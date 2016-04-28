@@ -25,3 +25,13 @@ class PackageInstallError(Exception):
 class SetDefaultError(Exception):
     """Set alternative default exception"""
     pass
+
+@task
+def is_installed(package_list):
+    """Check if package(s) installed"""
+    with settings(
+        hide('warnings'),  # stdout will print warnings anyway
+        warn_only=True     # Continue execution if puppet not installed
+    ):
+        result = run("rpm -q {0}".format(package_list))
+    return result.succeeded
