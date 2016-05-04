@@ -35,3 +35,29 @@ def is_installed(package_list):
     ):
         result = run("rpm -q {0}".format(package_list))
     return result.succeeded
+
+@task
+def update_hostname(hostname):
+    """Update hostname (command line and /etc/sysconfig/network)"""
+    try:
+        with settings(warn_only=True):
+            sudo("hostname {0}".format(hostname))   # Run hostname command
+            result = run("hostname")
+        if result.stdout != hostname:               # If hostname mismatch
+            raise UpdateHostnameError
+    except UpdateHostnameError:
+        abort("Hostname update failed")
+    print("Update /etc/sysconfig/network..")
+    try:
+        with settings(warn_only=True):
+            sed('/etc/sysconfig/network',
+                before='HOSTNAME=.*',                   # Search string
+                after='HOSTNAME={0}'.format(hostname),  # Replace string
+                use_sudo=True)
+            if not contains(
+                    '/etc/sysconfig/network',
+                    'HOSTNAME={0}'.format(hostname)):
+                raise UpdateFileError
+    except UpdateFileError:
+        abort("/etc/sysconfig/network update failed")
+    print("Hostname updated successfully, hostname: {0}".format(hostname))
