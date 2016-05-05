@@ -61,3 +61,10 @@ def update_hostname(hostname):
     except UpdateFileError:
         abort("/etc/sysconfig/network update failed")
     print("Hostname updated successfully, hostname: {0}".format(hostname))
+
+@task
+def update_hosts_file(master_ip, hostname, alias=None):
+    """Update The hosts file to add entry"""
+    if not alias:
+        alias = hostname.partition('.')[0]
+    append('/etc/hosts', "{0} {1} {2}".format(master_ip, hostname, alias), escape=False, use_sudo=True)
