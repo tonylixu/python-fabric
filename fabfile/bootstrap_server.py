@@ -68,3 +68,19 @@ def update_hosts_file(master_ip, hostname, alias=None):
     if not alias:
         alias = hostname.partition('.')[0]
     append('/etc/hosts', "{0} {1} {2}".format(master_ip, hostname, alias), escape=False, use_sudo=True)
+
+
+@task
+def install_rpm(rpm_source):
+    """Install rpm(s)"""
+    try:
+        # Download defaults to user's home directory
+        # rpm_source is the downloadable link
+        with settings(warn_only=True):
+            run("curl -O {0}".format(rpm_source))
+            result = sudo("yum -y localinstall {0}".format(basename(rpm_source)))
+        if result.failed:
+            raise PackageInstallError
+    except PackageInstallError:
+        abort('RPM {0} install failed'.format(rpm_source))
+    print('RPM {0} installed successfully'.format(rpm_source))
