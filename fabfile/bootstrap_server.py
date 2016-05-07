@@ -75,6 +75,7 @@ def install_rpm(rpm_source):
     """Install rpm(s)"""
     try:
         # Download defaults to user's home directory
+        # rpm_source is the downloadable link
         with settings(warn_only=True):
             run("curl -O {0}".format(rpm_source))
             result = sudo("yum -y localinstall {0}".format(basename(rpm_source)))
