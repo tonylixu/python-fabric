@@ -84,3 +84,16 @@ def install_rpm(rpm_source):
     except PackageInstallError:
         abort('RPM {0} install failed'.format(rpm_source))
     print('RPM {0} installed successfully'.format(rpm_source))
+
+@task
+def install_package(package_list):
+    """yum install package(s)"""
+    try:
+        with settings(warn_only=True):
+            sudo("yum -y install {0}".format(package_list))
+            result = run("rpm -q {0}".format(package_list))
+        if result.failed:
+            raise PackageInstallError
+    except PackageInstallError:
+        abort("{0} install failed".format(package_list))
+    print("{0} installed successfully".format(package_list))
