@@ -97,3 +97,16 @@ def install_package(package_list):
     except PackageInstallError:
         abort("{0} install failed".format(package_list))
     print("{0} installed successfully".format(package_list))
+
+@task
+def install_package_no_amzn(package_list):
+    """yum install package(s) with Amazon repos disabled"""
+    try:
+        with settings(warn_only=True):
+            sudo("yum -y --disablerepo='amzn-*' install {0}".format(package_list))
+            result = run("rpm -q {0}".format(package_list))
+        if result.failed:
+            raise PackageInstallError
+    except PackageInstallError:
+        abort("{0} install failed".format(package_list))
+    print("{0} installed successfully".format(package_list))
