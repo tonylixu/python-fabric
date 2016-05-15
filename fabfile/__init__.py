@@ -9,6 +9,7 @@ try:
     from . import zookeeper
     from . import route53
     from . import mysql
+    from . import zookeeper_util
 except ImportError:
     print ("HEY, there was a problem with imports, you might need to run this command:")
     print ("sudo pip install -r fabfile/requirements.txt")
