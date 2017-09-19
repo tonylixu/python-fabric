@@ -24,15 +24,19 @@ user_home_dir = ''
 try:
     user_home_dir = expanduser('~')
     with open('{0}/.fabric_config'.format(user_home_dir), 'r') as input:
+        # Parse yml file into dict
         fabric_data = yaml.load(input)
 except:
     print('Could not find {0}/.fabric_config file. Please create one'.format(user_home_dir))
 
-def get_credentials(category, field):
-    if category in fabric_data:
-        val = fabric_data[category][field]
+def get_credentials(category, field, override):
+    if not override is None:
+        val = override
     else:
-        val = None
+        if category in fabric_data:
+            val = fabric_data[category][field]
+        else:
+            val = None
     if val is None:
         raise Exception('No {0} {1} specifed in .fabric_config'.format(category, field))
     return val
