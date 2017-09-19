@@ -27,3 +27,12 @@ try:
         fabric_data = yaml.load(input)
 except:
     print('Could not find {0}/.fabric_config file. Please create one'.format(user_home_dir))
+
+def get_credentials(category, field):
+    if category in fabric_data:
+        val = fabric_data[category][field]
+    else:
+        val = None
+    if val is None:
+        raise Exception('No {0} {1} specifed in .fabric_config'.format(category, field))
+    return val
