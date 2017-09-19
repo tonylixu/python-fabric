@@ -29,7 +29,7 @@ try:
 except:
     print('Could not find {0}/.fabric_config file. Please create one'.format(user_home_dir))
 
-def get_credentials(category, field, override):
+def get_credentials(category, field, override=None):
     if not override is None:
         val = override
     else:
