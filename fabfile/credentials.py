@@ -17,3 +17,13 @@ Then, if you call the from_secret function:
     from_secret('mysql', 'user') returns 'root'
     from_secret('mysql', 'password') returns 'mysql_root'
 '''
+from os.path import expanduser
+import yaml
+
+user_home_dir = ''
+try:
+    user_home_dir = expanduser('~')
+    with open('{0}/.fabric_config'.format(user_home_dir), 'r') as input:
+        fabric_data = yaml.load(input)
+except:
+    print('Could not find {0}/.fabric_config file. Please create one'.format(user_home_dir))
