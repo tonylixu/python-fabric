@@ -45,10 +45,10 @@ def send_notifications(msg):
 
 
 def easter():
-    fun_msg = [ "OMG, Love you Kevin!",
-                "Kevin, you make me High!",
-                "Kevin, your asshole is beautiful",
-                "Kevin, JJ big!"]
+    fun_msg = [ "OMG, Nice code!",
+                "On fire!",
+                "Godspeed",
+                "!!"]
     a = random.randint(0, 3)
     return fun_msg[a]
 
