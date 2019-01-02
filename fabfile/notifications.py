@@ -90,7 +90,7 @@ def notify(func):
             prefix = '[{}] - {} [{}] {}.{}({})'.format(
                     easter_msg,
                     datetime.strftime(datetime.now(), '%Y.%m.%d %H:%M:%S'),
-                    None if env.host is None else env.host.replace('.11kick.com', ''),
+                    None if env.host is None else env.host.replace('.lixu.ca', ''),
                     func.__module__.replace('fabfile.', ''),
                     func.func_name, ','.join(args)
                 )
